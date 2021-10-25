@@ -2,7 +2,7 @@
 
 ## Table Of Content.
 * **0.** [**Organization of the repository.**](https://github.com/AntoineStevan/fgk/tree/main/#0-organization-of-the-repository-toc)
-*   **1.**   [**Compile the code.**](https://github.com/AntoineStevan/fgk/tree/main/#1-compile-the-code-toc)
+* **1.** [**Compile the code.**](https://github.com/AntoineStevan/fgk/tree/main/#1-compile-the-code-toc)
   - **1.1.** [**Dependencies.**    ](https://github.com/AntoineStevan/fgk/tree/main/#11-dependencies-toc)
   - **1.2.** [**Compile.**         ](https://github.com/AntoineStevan/fgk/tree/main/#12-compile-toc)
   - **1.3.** [**Run.**             ](https://github.com/AntoineStevan/fgk/tree/main/#13-run-toc)
@@ -13,7 +13,7 @@ The repository is organized as follows:
 
 📦 ***fgk***  
 ┣ 📂 **build** -- *see [here](https://github.com/AntoineStevan/fgk/tree/main/#12-compile-toc) to compile the code.*  
-┃ ┣ app       \   
+┃ ┣ fgk       \  
 ┃ ┣ ...       | *files created with the compilation.*  
 ┃ ┗ Makefile  /  
 ┣ 📜 [`CMakeLists.txt`] -- **  
@@ -41,9 +41,9 @@ make
 ```
 
 ### 1.3. Run. [[toc](https://github.com/AntoineStevan/fgk/tree/main/#table-of-content)]
-Once the code has been compiled, see [here]((https://github.com/AntoineStevan/fgk/tree/main/#12-compile-toc)), one can run the code, from `./build`, with
+Once the code has been compiled, see [here](https://github.com/AntoineStevan/fgk/tree/main/#12-compile-toc), one can run the code, from `./build`, with
 ```bash
-./app
+./fgk
 ```
 
 
