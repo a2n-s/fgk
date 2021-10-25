@@ -26,16 +26,16 @@ int main(){
 					}
 					switch (event.key.code){
 						case sf::Keyboard::Z:
-							cout << "Z pressed" << endl;
+							f1.jump();
 							break;
 						case sf::Keyboard::Q:
-							cout << "Q pressed" << endl;
+							f1.moveLeft();
 							break;
 						case sf::Keyboard::S:
-							cout << "S pressed" << endl;
+							f1.protect();
 							break;
 						case sf::Keyboard::D:
-							cout << "D pressed" << endl;
+							f1.moveRight();
 							break;
 						default:
 							break;

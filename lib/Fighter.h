@@ -6,13 +6,17 @@
 class Fighter {
 	public:
 	Fighter();
-	Fighter(int x, int y);
+	Fighter(float x, float y);
 	Fighter(Fighter const& other);
-	void show(sf::RenderWindow* window);
+	void jump();
+	void moveLeft();
+	void moveRight();
+	void protect();
+	void show(sf::RenderWindow* window) const;
 	~Fighter();
 
 	private:
-	int m_x, m_y;
+	float m_x, m_y;
 };
 
 #endif
