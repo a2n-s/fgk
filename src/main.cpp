@@ -9,7 +9,7 @@ using namespace std;
 int main(){
 	sf::RenderWindow window(sf::VideoMode(800, 450), "fg Kernel!");
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(30);
+	window.setFramerateLimit(60);
 
 	Fighter f1, f2;
 	
@@ -48,6 +48,9 @@ int main(){
 				window.close();
 		}
 		
+		f1.applyForce(sf::Vector2<float>(0, 10000));
+		f1.update();
+
 		window.clear(sf::Color::Black);
 		f1.show(&window);
 		window.display();
