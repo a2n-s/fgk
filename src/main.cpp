@@ -62,7 +62,7 @@ int main(){
 		}
 
 		f.update(platforms, 3);
-		if (f.outside()){ f.spawn(sf::Vector2<float>(150, 200)); }
+		if (f.outside(-1000, 1800, -500, 550)){ f.spawn(sf::Vector2<float>(150, 200)); }
 
 		window.clear(sf::Color::Black);
 		f.show(&window);

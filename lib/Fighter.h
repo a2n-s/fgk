@@ -18,7 +18,7 @@ class Fighter {
 	void stop();
 	void protect();
 	void update(Platform* platforms, int nb_platforms);
-	bool outside() const;
+	bool outside(float x, float X, float y, float Y) const;
 	void show(sf::RenderWindow* window) const;
 	~Fighter();
 

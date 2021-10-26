@@ -6,6 +6,7 @@
   - **1.1.** [**Dependencies.**    ](https://github.com/AntoineStevan/fgk/tree/main/#11-dependencies-toc)
   - **1.2.** [**Compile.**         ](https://github.com/AntoineStevan/fgk/tree/main/#12-compile-toc)
   - **1.3.** [**Run.**             ](https://github.com/AntoineStevan/fgk/tree/main/#13-run-toc)
+* **2.** [**What the kernel attempts to do.**](https://github.com/AntoineStevan/fgk/tree/main/#2-what-the-kernel-attempts-to-do-toc)
 
 ## 0. Organization of the repository. [[toc](https://github.com/AntoineStevan/fgk/tree/main/#table-of-content)]
 
@@ -45,6 +46,15 @@ Once the code has been compiled, see [here](https://github.com/AntoineStevan/fgk
 ```bash
 ./fgk
 ```
+
+## 2. What the kernel attempts to do. [[toc](https://github.com/AntoineStevan/fgk/tree/main/#table-of-content)]
+* [x] parabolic-by-parts jumps
+  - [x] parameterised by height and time to get there.
+  - [x] variable height jumps based on use input, e.g. the longer the key is pressed the bigger the jump.
+  - [x] air control to guide the jump.
+  - [x] fast falling -> that feeling !
+* [x] verlet integration scheme
+
 
 
 

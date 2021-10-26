@@ -6,11 +6,15 @@
 using namespace std;
 
 
-#define SPEED         1000
-#define GRAVITY       10000
-#define JUMP_HEIGHT   150
-#define JUMP_DURATION .1
-#define NB_JUMPS      5
+#define SPEED           1000
+#define MAX_SPEED       1000
+#define GRAVITY         10000
+#define JUMP_HEIGHT     150
+#define JUMP_DURATION   .1
+#define NB_JUMPS        5
+#define FAST_FALLING    2
+#define AIR_CONTROL     5
+#define VARIABLE_HEIGHT 5
 
 
 Fighter::Fighter() : m_pos(sf::Vector2<float>(0.f, 0.f)), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumps(NB_JUMPS), m_g(GRAVITY){
@@ -35,8 +39,6 @@ void Fighter::spawn(sf::Vector2<float> pos){
 }
 
 void Fighter::jump(){
-	cout << "jump " << m_pos.y << " " << m_vel.y << " " << m_jumps << " " << m_can_jump << endl;
-	cout << "uses a jump " << ((m_jumps > 0 && m_can_jump)? "true" : "false") << endl;
 	float beta  = -JUMP_HEIGHT / JUMP_DURATION;
 	if (m_jumps > 0 && m_can_jump){
 		m_jumps--;
@@ -55,8 +57,8 @@ void Fighter::jump(){
 }
 
 void Fighter::canJump(){
-	cout << "can jump again" << endl;
 	m_can_jump = true;
+	m_g = m_g * VARIABLE_HEIGHT;
 }
 
 void Fighter::moveLeft(){
@@ -82,15 +84,18 @@ void Fighter::update(Platform* platforms, int nb_platforms){
 	float dt = .01f;
 	if (!m_jumping){
 		m_vel.x = (m_left)? -SPEED : ((m_right)? SPEED : 0);
+	} else {
+		float dvx = ((m_left)? -SPEED : ((m_right)? SPEED : 0)) / AIR_CONTROL;
+		m_vel.x += dvx;
 	}
+	m_vel.x = max(min(m_vel.x, (float) MAX_SPEED),(float)  -MAX_SPEED);
 
 // Verlet integration.
-	m_pos = m_pos + 0.01f * m_vel;
+	m_pos = m_pos + dt * m_vel;
 
 	sf::Vector2<float> new_acc = m_acc;
-	m_acc.y = (m_vel.y < 0)? m_g : 3 * m_g;
+	m_acc.y = (m_vel.y < 0)? m_g : FAST_FALLING * m_g;
 
-	cout << m_vel.y << endl;
 	m_jumping = true;
 	for (int i = 0; i < nb_platforms; i++){
 		if (m_pos.x > platforms[i].getLeft() && m_pos.x < platforms[i].getRight()){
@@ -109,8 +114,8 @@ void Fighter::update(Platform* platforms, int nb_platforms){
 //
 }
 
-bool Fighter::outside() const {
-	return m_pos.x < -1000 || m_pos.x > 1800 || m_pos.y < -500 || m_pos.y > 550;
+bool Fighter::outside(float x, float X, float y, float Y) const {
+	return m_pos.x < x || m_pos.x > X || m_pos.y < y || m_pos.y > Y;
 }
 
 void Fighter::show(sf::RenderWindow* window) const {
