@@ -10,18 +10,19 @@ using namespace std;
 #define GRAVITY       10000
 #define JUMP_HEIGHT   150
 #define JUMP_DURATION .1
+#define NB_JUMPS      5
 
 
-Fighter::Fighter() : m_pos(sf::Vector2<float>(0.f, 0.f)), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumping(false), m_g(GRAVITY){
+Fighter::Fighter() : m_pos(sf::Vector2<float>(0.f, 0.f)), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumps(NB_JUMPS), m_g(GRAVITY){
 }
 
-Fighter::Fighter(float r) : m_pos(sf::Vector2<float>(0.f, 0.f)), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumping(false), m_g(GRAVITY), m_r(r){
+Fighter::Fighter(float r) : m_pos(sf::Vector2<float>(0.f, 0.f)), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumps(NB_JUMPS), m_g(GRAVITY), m_r(r){
 }
 
-Fighter::Fighter(sf::Vector2<float> pos, float r) : m_pos(pos), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumping(false), m_g(GRAVITY), m_r(r){
+Fighter::Fighter(sf::Vector2<float> pos, float r) : m_pos(pos), m_vel(sf::Vector2<float>(0.f, 0.f)), m_acc(sf::Vector2<float>(0.f, 0.f)), m_jumps(NB_JUMPS), m_g(GRAVITY), m_r(r){
 }
 
-Fighter::Fighter(Fighter const& other) : m_pos(other.m_pos), m_vel(other.m_vel), m_acc(other.m_acc), m_jumping(other.m_jumping), m_g(GRAVITY), m_r(other.m_r){
+Fighter::Fighter(Fighter const& other) : m_pos(other.m_pos), m_vel(other.m_vel), m_acc(other.m_acc), m_jumps(other.m_jumps), m_g(GRAVITY), m_r(other.m_r){
 }
 
 void Fighter::spawn(sf::Vector2<float> pos){
@@ -29,12 +30,16 @@ void Fighter::spawn(sf::Vector2<float> pos){
 	m_vel = sf::Vector2<float>(0.f, 0.f);
 	m_acc = sf::Vector2<float>(0.f, 0.f);
 	m_jumping = false;
+	m_jumps = NB_JUMPS;
 	m_can_jump = true;
 }
 
 void Fighter::jump(){
+	cout << "jump " << m_pos.y << " " << m_vel.y << " " << m_jumps << " " << m_can_jump << endl;
+	cout << "uses a jump " << ((m_jumps > 0 && m_can_jump)? "true" : "false") << endl;
 	float beta  = -JUMP_HEIGHT / JUMP_DURATION;
-	if (!m_jumping && m_can_jump){
+	if (m_jumps > 0 && m_can_jump){
+		m_jumps--;
 		m_jumping = true;
 		m_can_jump = false;
 		if (!m_left && !m_right){
@@ -42,6 +47,7 @@ void Fighter::jump(){
 			m_g = -beta / JUMP_DURATION;
 		}
 		else {
+			m_vel.x = (m_left)? -SPEED : ((m_right)? SPEED : m_vel.x);
 			m_vel.y = beta;
 			m_g = -beta / JUMP_DURATION;
 		}
@@ -49,6 +55,7 @@ void Fighter::jump(){
 }
 
 void Fighter::canJump(){
+	cout << "can jump again" << endl;
 	m_can_jump = true;
 }
 
@@ -83,12 +90,15 @@ void Fighter::update(Platform* platforms, int nb_platforms){
 	sf::Vector2<float> new_acc = m_acc;
 	m_acc.y = (m_vel.y < 0)? m_g : 3 * m_g;
 
+	cout << m_vel.y << endl;
+	m_jumping = true;
 	for (int i = 0; i < nb_platforms; i++){
 		if (m_pos.x > platforms[i].getLeft() && m_pos.x < platforms[i].getRight()){
 			if (m_pos.y > platforms[i].getHeight() - 2*m_r && m_vel.y > 0){
 				m_pos.y = platforms[i].getHeight() - 2*m_r;
 				m_vel.y = 0;
 				m_jumping = false;
+				m_jumps = NB_JUMPS;
 			}
 		}
 	}

@@ -27,6 +27,7 @@ class Fighter {
 	sf::Vector2<float> m_vel;
 	sf::Vector2<float> m_acc;
 	bool m_jumping;
+	int  m_jumps;
 	bool m_can_jump;
 	bool m_left;
 	bool m_right;
