@@ -4,6 +4,7 @@ using namespace std;
 #include <SFML/Graphics.hpp>
 
 #include "Fighter.h"
+#include "Platform.h"
 
 
 int main(){
@@ -11,7 +12,12 @@ int main(){
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 
-	Fighter f(sf::Vector2<float>(100, 300));
+	Fighter f(10);
+	f.spawn(sf::Vector2<float>(150, 200));
+	Platform platforms[3];
+	platforms[0] = Platform(50, 750, 420);
+	platforms[1] = Platform(100, 200, 330);
+	platforms[2] = Platform(600, 700, 330);
 	
 	while (window.isOpen()){
 		sf::Event event;
@@ -55,10 +61,14 @@ int main(){
 			f.moveRight();
 		}
 
-		f.update();
+		f.update(platforms, 3);
+		if (f.outside()){ f.spawn(sf::Vector2<float>(150, 200)); }
 
 		window.clear(sf::Color::Black);
 		f.show(&window);
+		for (const Platform p : platforms){
+			p.show(&window);
+		}
 		window.display();
 	}
 	
