@@ -9,6 +9,7 @@ class Fighter {
 	Fighter(sf::Vector2<float> pos);
 	Fighter(Fighter const& other);
 	void jump();
+	void canJump();
 	void moveLeft();
 	void moveRight();
 	void stop();
@@ -22,6 +23,7 @@ class Fighter {
 	sf::Vector2<float> m_vel;
 	sf::Vector2<float> m_acc;
 	bool m_jumping;
+	bool m_can_jump;
 	bool m_left;
 	bool m_right;
 	float m_g;
