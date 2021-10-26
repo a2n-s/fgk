@@ -11,8 +11,8 @@ class Fighter {
 	void jump();
 	void moveLeft();
 	void moveRight();
+	void stop();
 	void protect();
-	void applyForce(sf::Vector2<float> force);
 	void update();
 	void show(sf::RenderWindow* window) const;
 	~Fighter();
@@ -22,6 +22,9 @@ class Fighter {
 	sf::Vector2<float> m_vel;
 	sf::Vector2<float> m_acc;
 	bool m_jumping;
+	bool m_left;
+	bool m_right;
+	float m_g;
 };
 
 #endif

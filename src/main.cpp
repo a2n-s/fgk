@@ -11,7 +11,7 @@ int main(){
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 
-	Fighter f1, f2;
+	Fighter f1(sf::Vector2<float>(100, 300));
 	
 	while (window.isOpen()){
 		sf::Event event;
@@ -41,14 +41,25 @@ int main(){
 							break;
 					}
 					break;
+				case sf::Event::KeyReleased:
+					switch (event.key.code){
+						case sf::Keyboard::Q:
+							f1.stop();
+							break;
+						case sf::Keyboard::D:
+							f1.stop();
+							break;
+						default:
+							break;
+					}
+					break;
 				default:
 					break;
 			}
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		
-		f1.applyForce(sf::Vector2<float>(0, 10000));
+
 		f1.update();
 
 		window.clear(sf::Color::Black);
