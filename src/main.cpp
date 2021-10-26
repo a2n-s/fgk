@@ -11,7 +11,7 @@ int main(){
 	window.setVerticalSyncEnabled(true);
 	window.setFramerateLimit(60);
 
-	Fighter f1(sf::Vector2<float>(100, 300));
+	Fighter f(sf::Vector2<float>(100, 300));
 	
 	while (window.isOpen()){
 		sf::Event event;
@@ -20,34 +20,16 @@ int main(){
 				case sf::Event::Closed:
 					window.close();
 					break;
-				case sf::Event::KeyPressed:
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-						cout << "hello" << endl;
-					}
-					switch (event.key.code){
-						case sf::Keyboard::Z:
-							f1.jump();
-							break;
-						case sf::Keyboard::Q:
-							f1.moveLeft();
-							break;
-						case sf::Keyboard::S:
-							f1.protect();
-							break;
-						case sf::Keyboard::D:
-							f1.moveRight();
-							break;
-						default:
-							break;
-					}
-					break;
 				case sf::Event::KeyReleased:
 					switch (event.key.code){
 						case sf::Keyboard::Q:
-							f1.stop();
+							f.stop();
 							break;
 						case sf::Keyboard::D:
-							f1.stop();
+							f.stop();
+							break;
+						case sf::Keyboard::Z:
+							f.canJump();
 							break;
 						default:
 							break;
@@ -60,10 +42,23 @@ int main(){
 				window.close();
 		}
 
-		f1.update();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
+			f.jump();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+			f.moveLeft();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+			f.protect();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+			f.moveRight();
+		}
+
+		f.update();
 
 		window.clear(sf::Color::Black);
-		f1.show(&window);
+		f.show(&window);
 		window.display();
 	}
 	
